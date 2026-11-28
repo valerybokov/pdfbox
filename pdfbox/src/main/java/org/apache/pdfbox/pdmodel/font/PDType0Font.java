@@ -632,7 +632,9 @@ public class PDType0Font extends PDFont implements PDVectorFont
                         List<Integer> codes = cmap.getCharCodes(gid);
                         if (codes != null && !codes.isEmpty())
                         {
-                            return Character.toString((char) (int) codes.get(0));
+                            // a font cmap (format 12) can map the glyph to a supplementary
+                            // character, which takes two chars
+                            return new String(Character.toChars(codes.get(0)));
                         }
                     }
                 }
